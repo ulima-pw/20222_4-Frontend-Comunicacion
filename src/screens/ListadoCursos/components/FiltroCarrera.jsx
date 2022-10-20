@@ -9,7 +9,7 @@ const FiltroCarrera = (props) => {
                 <option>---- Seleccione carrera ----</option>
                 {
                     props.carreras.map((carrera) => {
-                        return <option>
+                        return <option key={carrera.id} value={carrera.id}>
                             { carrera.nombre }
                         </option>
                     })
