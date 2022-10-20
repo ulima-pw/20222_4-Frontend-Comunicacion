@@ -5,7 +5,8 @@ const FiltroCarrera = (props) => {
     return <Form>
         <Form.Group>
             <Form.Label>Carrera</Form.Label>
-            <Form.Select>
+            <Form.Select
+                onChange={ (evt) => { props.onCarreraSelected(evt.target.value) }}>
                 <option>---- Seleccione carrera ----</option>
                 {
                     props.carreras.map((carrera) => {

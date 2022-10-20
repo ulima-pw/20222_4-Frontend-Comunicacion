@@ -8,6 +8,7 @@ import GridCursos from "./components/GridCursos"
 
 const ListadoCursosPage = () => {
     const [listadoCarreras, setListadoCarreras] = useState([])
+    const [listadoCursos, setListadoCursos] = useState([])
 
     const httpObtenerCarreras = async () => {
         const resp = await fetch("http://localhost:4444/carreras")
@@ -16,16 +17,35 @@ const ListadoCursosPage = () => {
         setListadoCarreras(data)
     }
 
+    const httpObtenerCursos = async (carreraId = null) => {
+        const ruta = carreraId == null ? 
+            "http://localhost:4444/cursos" : 
+            `http://localhost:4444/cursos?carrera=${carreraId}`
+
+        const resp = await fetch(ruta)
+        const data = await resp.json()
+        console.log(data)
+        setListadoCursos(data)
+    }
+
     useEffect(() => {
         httpObtenerCarreras()
+        httpObtenerCursos()
     }, [])
+
+    const onCarreraSelected = (carreraId) => {
+        console.log("Se selecciono carrera " +  carreraId)
+        httpObtenerCursos(carreraId)
+    }
 
     return <Layout
         makeHeader={ () => <Header titulo="Listado de Cursos" /> }
         makeBody={ 
             () =>  <div>
-                <FiltroCarrera carreras={ listadoCarreras }/>
-                <GridCursos />
+                <FiltroCarrera 
+                    carreras={ listadoCarreras }
+                    onCarreraSelected={ onCarreraSelected }/>
+                <GridCursos cursos={ listadoCursos }/>
             </div>
         }
         makeFooter={ () => <Footer /> }
