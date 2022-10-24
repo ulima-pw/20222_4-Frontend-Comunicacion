@@ -1,5 +1,5 @@
-import { Card, Form, Button, Container, Row, Col } from 'react-bootstrap'
-
+import { Card, Form, Button, Container, Row, Col, Image } from 'react-bootstrap'
+import { RUTA_BACKEND } from '../../conf'
 
 const LoginPage = () => {
     return <Container>
@@ -9,6 +9,7 @@ const LoginPage = () => {
                 <Card>
                     <Card.Body>
                         <h2>Login</h2>
+                        <Image src={ `${ RUTA_BACKEND }/imagenes/logo.png` }/>
                         <Form>
                             <Form.Group>
                                 <Form.Label>
