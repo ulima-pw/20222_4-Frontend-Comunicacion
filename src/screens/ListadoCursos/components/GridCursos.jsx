@@ -9,7 +9,7 @@ const GridCursos = (props) => {
             props.cursos.map((curso) => {
                 return <Row className="mb-2">
                     <Col>
-                        <Card>
+                        <Card onClick={ () => props.onCursoSelected(curso.id) }>
                             <Card.Body>{ curso.nombre }</Card.Body>
                         </Card>
                     </Col>
