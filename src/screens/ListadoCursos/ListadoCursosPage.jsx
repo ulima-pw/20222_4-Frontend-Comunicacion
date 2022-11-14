@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import {Container} from 'react-bootstrap'
+import { useNavigate } from "react-router"
 import Footer from "../../components/Footer"
 import Header from "../../components/Header"
 import Layout from "../../components/Layout"
@@ -9,6 +10,8 @@ import GridCursos from "./components/GridCursos"
 const ListadoCursosPage = () => {
     const [listadoCarreras, setListadoCarreras] = useState([])
     const [listadoCursos, setListadoCursos] = useState([])
+
+    const navigate = useNavigate() // hook de navegacion
 
     const httpObtenerCarreras = async () => {
         const resp = await fetch("http://localhost:4444/carreras")
@@ -38,6 +41,11 @@ const ListadoCursosPage = () => {
         httpObtenerCursos(carreraId)
     }
 
+    const onCursoSelected = (cursoId) => {
+        // Pasar al siguiente Page ListadoEvaluacionesPage
+        navigate(`/evaluaciones/${cursoId}`)
+    }
+
     return <Layout
         makeHeader={ () => <Header titulo="Listado de Cursos" /> }
         makeBody={ 
@@ -45,7 +53,9 @@ const ListadoCursosPage = () => {
                 <FiltroCarrera 
                     carreras={ listadoCarreras }
                     onCarreraSelected={ onCarreraSelected }/>
-                <GridCursos cursos={ listadoCursos }/>
+                <GridCursos 
+                    cursos={ listadoCursos }
+                    onCursoSelected={ onCursoSelected }/>
             </div>
         }
         makeFooter={ () => <Footer /> }

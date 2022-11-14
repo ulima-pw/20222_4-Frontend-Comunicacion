@@ -1,12 +1,13 @@
 import React from "react";
 import { ListGroup } from 'react-bootstrap'
 
-const ListadoCiclos = () => {
+const ListadoCiclos = (props) => {
     return <ListGroup as="ul">
-        <ListGroup.Item as="li" active>2022-2</ListGroup.Item>
-        <ListGroup.Item as="li" >2022-1</ListGroup.Item>
-        <ListGroup.Item as="li" >2021-2</ListGroup.Item>
-        <ListGroup.Item as="li" >2021-1</ListGroup.Item>
+        {
+            props.ciclos.map((ciclo) => {
+                return <ListGroup.Item as="li">{ ciclo.nombre }</ListGroup.Item>
+            })
+        }
     </ListGroup>
 }
 
