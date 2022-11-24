@@ -9,10 +9,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { RUTA_BACKEND } from "../../conf";
+import RegistrarResolucionModal from "./components/RegistrarResolucionModal";
 
 const ListadoEvaluacionesPage = () => {
     const [listadoCiclos , setListadoCiclos] = useState([])
     const [listadoEvaluaciones, setListadoEvaluaciones] = useState([])
+    const [showModal, setShowModal] = useState(false)
 
     const { cursoId } = useParams() // hook para obtener el parametro que viene en el path
 
@@ -34,6 +36,14 @@ const ListadoEvaluacionesPage = () => {
         httpObtenerEvaluaciones(cursoId)
     }, [])
 
+    const onCloseModal = () => {
+        setShowModal(false)
+    }
+
+    const saveResolucion = (evaluacionId, url) => {
+        console.log(`EID: ${evaluacionId} url: ${url}`)
+    }
+
     return <Layout
         makeHeader={ () => <Header titulo="Listado de Evaluaciones" /> }
         makeBody={ 
@@ -43,15 +53,25 @@ const ListadoEvaluacionesPage = () => {
                 </Col>
                 <Col md={9}>
                     <Button variant="success"
-                        className="mb-2">
+                        className="mb-2"
+                        onClick={ () => {
+                            setShowModal(true)
+                        }}>
                         Subir
                     </Button>
                     <ListadoEvaluaciones 
                         evaluaciones={ listadoEvaluaciones }/>
                 </Col>
-            </Row> 
+            </Row>
         }
-        makeFooter={ () => <Footer />}
+        makeFooter={ () => <>
+            <Footer />
+            <RegistrarResolucionModal 
+                evaluaciones={ listadoEvaluaciones }
+                onSaveResolucion= { saveResolucion }
+                showModal={ showModal }
+                onCloseModal={ onCloseModal } />
+        </>}
     />
 }
 export default ListadoEvaluacionesPage
