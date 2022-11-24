@@ -30,6 +30,38 @@ const ListadoEvaluacionesPage = () => {
         setListadoEvaluaciones(data)
     }
 
+    const httpGuardarEvaluacion = async (
+        estudianteId, evaluacionId, url
+    ) => {
+        const data = {
+            estudiante_id : estudianteId,
+            evaluacion_id : evaluacionId,
+            url : url
+        }
+
+        const resp = await fetch(
+            `${RUTA_BACKEND}/resolucion`,
+            {
+                method : "POST",
+                body : JSON.stringify(data),
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            }
+        )
+        const dataResp = await resp.json()
+
+        if (dataResp.error !== "") {
+            // Hubo un error
+            console.error(dataResp.error)
+        }
+
+        httpObtenerEvaluaciones(cursoId)
+
+    }
+
+
+
     // Hook
     useEffect(() => {
         httpObtenerCiclos()
@@ -42,6 +74,12 @@ const ListadoEvaluacionesPage = () => {
 
     const saveResolucion = (evaluacionId, url) => {
         console.log(`EID: ${evaluacionId} url: ${url}`)
+
+        httpGuardarEvaluacion(
+            "2c4f19ea-0871-46e0-b103-427b6f1f76e7",
+            evaluacionId,
+            url
+        )
     }
 
     return <Layout
