@@ -7,7 +7,7 @@ const ListadoEvaluaciones = (props) => {
         {
             // EXPRESION javascript
             (() => {
-                if (props.evaluaciones.length == 0) {
+                if (props.evaluaciones.length === 0) {
                     return <div>No hay evaluaciones para este curso</div>
                 }else {
                     return props.evaluaciones.map((evaluacion) => {

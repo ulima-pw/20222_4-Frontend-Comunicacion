@@ -34,7 +34,7 @@ const ListadoEvaluacionesPage = () => {
     useEffect(() => {
         httpObtenerCiclos()
         httpObtenerEvaluaciones(cursoId)
-    }, [])
+    }, [cursoId])
 
     const onCloseModal = () => {
         setShowModal(false)
