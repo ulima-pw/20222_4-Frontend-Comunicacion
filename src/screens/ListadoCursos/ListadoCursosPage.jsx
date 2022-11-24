@@ -4,6 +4,7 @@ import { useNavigate } from "react-router"
 import Footer from "../../components/Footer"
 import Header from "../../components/Header"
 import Layout from "../../components/Layout"
+import { RUTA_BACKEND } from "../../conf"
 import FiltroCarrera from "./components/FiltroCarrera"
 import GridCursos from "./components/GridCursos"
 
@@ -14,7 +15,7 @@ const ListadoCursosPage = () => {
     const navigate = useNavigate() // hook de navegacion
 
     const httpObtenerCarreras = async () => {
-        const resp = await fetch("http://localhost:4444/carreras")
+        const resp = await fetch(`${RUTA_BACKEND}/carreras`)
         const data = await resp.json()
         console.log(data)
         setListadoCarreras(data)
@@ -22,8 +23,8 @@ const ListadoCursosPage = () => {
 
     const httpObtenerCursos = async (carreraId = null) => {
         const ruta = carreraId == null ? 
-            "http://localhost:4444/cursos" : 
-            `http://localhost:4444/cursos?carrera=${carreraId}`
+            `${RUTA_BACKEND}/cursos` : 
+            `${RUTA_BACKEND}/cursos?carrera=${carreraId}`
 
         const resp = await fetch(ruta)
         const data = await resp.json()

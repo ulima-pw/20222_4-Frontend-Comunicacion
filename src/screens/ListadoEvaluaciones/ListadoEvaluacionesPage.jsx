@@ -8,6 +8,7 @@ import ListadoEvaluaciones from "./components/ListaEvaluaciones";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import { RUTA_BACKEND } from "../../conf";
 
 const ListadoEvaluacionesPage = () => {
     const [listadoCiclos , setListadoCiclos] = useState([])
@@ -16,13 +17,13 @@ const ListadoEvaluacionesPage = () => {
     const { cursoId } = useParams() // hook para obtener el parametro que viene en el path
 
     const httpObtenerCiclos = async () => {
-        const resp = await fetch("http://localhost:4444/ciclos")
+        const resp = await fetch(`${RUTA_BACKEND}/ciclos`)
         const data = await resp.json()
         setListadoCiclos(data)
     }
 
     const httpObtenerEvaluaciones = async (cursoId) => {
-        const resp = await fetch(`http://localhost:4444/evaluacion?curso=${cursoId}`)
+        const resp = await fetch(`${RUTA_BACKEND}/evaluacion?curso=${cursoId}`)
         const data = await resp.json()
         setListadoEvaluaciones(data)
     }
