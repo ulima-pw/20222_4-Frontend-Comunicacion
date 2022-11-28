@@ -20,6 +20,9 @@ const ListadoCursosPage = () => {
         setListadoCarreras(data)
     }
 
+    // Obtener de localstorage
+    const token = localStorage.getItem("TOKEN")
+
     const httpObtenerCursos = async (carreraId = null) => {
         const ruta = carreraId == null ? 
             `${RUTA_BACKEND}/cursos` : 
@@ -47,7 +50,7 @@ const ListadoCursosPage = () => {
     }
 
     return <Layout
-        makeHeader={ () => <Header titulo="Listado de Cursos" /> }
+        makeHeader={ () => <Header titulo={`Listado de Cursos: ${token}`} /> }
         makeBody={ 
             () =>  <div>
                 <FiltroCarrera 
